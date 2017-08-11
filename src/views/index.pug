@@ -13,14 +13,15 @@ body
 		h1 I am blog
 		br
 		h3 Have blog?
-		form(action='/login' method='post')
-			label email
-			input#email(name='email' required)
-			br
-			label password
-			input#password(type= 'password' name='password' required)
-			br
-			input(type='submit' value='login' id='submit')
+		#loginform
+			form(action='/login' method='post')
+				label email
+				input#email(name='email' required)
+				br
+				label password
+				input#password(type= 'password' name='password' required)
+				br
+				input(type='submit' value='login' id='submit')
 		br
 		h3 No blog?
 		a(href='/registerform') Sign Up 
