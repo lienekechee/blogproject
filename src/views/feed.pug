@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title feed
+    link(rel='stylesheet', type='text/css', href='/CSS/main.css')
+  body 
+    .container
+      h1 The Pet Feed
+      h2 logged in as #{user.username} 
+      a(href='/profile') your profile
+      br
+      a(href='/logout') log out 
+      br
+      form(action= '/searchPost', method= 'POST', id= "postSearch")
+        input(type="text" name="search" placeholder= "Subject of post" id="postId")
+        input(type="submit" value= "find posts")
+      br
+      h2 
+      br
+      p click on a post to see comments
+      each post in posts
+        h2
+          form(method ="POST" action = '/PostViaLink' id = 'postLink')
+            input(type="hidden" name="postLink" value=`${post.id}`)
+            a(href=`/post/${post.id}` onclick="document.getElementById('postLink').submit()") #{post.subject}
+          
+        p posted by #{post.user.username}
+        p #{post.body}
+        form(action= '/comment', method= 'POST', id= "commentForm")
+          input(type="text" name="comment" placeholder= "Comment on this post" id="comment")
+          input(type="hidden" name="commentPostId" value=`${post.id}`)
+          input(type="submit" value= "post")
+

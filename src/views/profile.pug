@@ -1,0 +1,30 @@
+doctype html
+html
+head
+	title Profile
+	link(rel='stylesheet', type='text/css', href='/CSS/main.css')
+body
+	.container
+		h1 your blog, #{user.username}. 
+		a(href='/feed') check out the Pet Feed
+		br
+		a(href='/logout') log out
+		br
+		p You may vent your furstrations in the space below
+		br
+		form(action= '/postMsg', method= 'POST', id= "msgForm")
+			input(type="text" name="msgSubject" placeholder= "subject" id="msgSubject")
+			br
+			input(type="text" name="msgBody" placeholder= "what your pet peeve?" id="msgBody")
+			br
+			input(type="submit" value= "tell them")
+		br
+
+		h2 your story
+		p Click on a post to see comments
+			each post in posts
+				h3
+					form(method ="POST" action = '/PostViaLink' id = 'postLink')
+						input(type="hidden" name="postLink" value=`${post.id}`)
+						a(href=`/post/${post.id}` onclick="document.getElementById('postLink').submit()") #{post.subject}
+				p #{post.body}

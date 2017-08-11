@@ -1,0 +1,26 @@
+doctype html
+html
+head
+	title Blog Home
+	link(rel='stylesheet', type='text/css', href='/CSS/main.css')
+	//- meta(name="viewport" content="width=device-width, initial-scale=1")
+	//- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+	//- script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+	//- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+	//- link(href="https://fonts.googleapis.com/css?family=Cabin|Nunito|Sedgwick+Ave" rel="stylesheet")
+body
+	.container
+		h1 I am blog
+		br
+		h3 Have blog?
+		form(action='/login' method='post')
+			label email
+			input#email(name='email' required)
+			br
+			label password
+			input#password(type= 'password' name='password' required)
+			br
+			input(type='submit' value='login' id='submit')
+		br
+		h3 No blog?
+		a(href='/registerform') Sign Up 

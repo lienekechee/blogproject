@@ -1,0 +1,16 @@
+body{
+	background-color: #8DB8E2;
+	font-family:'Arial';
+	color: #FDE1AA;
+
+}
+
+.container{
+	text-align: center;
+	
+}
+
+#loginform{
+	width: 50%;
+	background-color: #F06D60;
+}

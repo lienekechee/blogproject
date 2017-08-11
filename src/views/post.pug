@@ -1,0 +1,22 @@
+doctype html
+html
+	head
+		title View post
+		link(rel='stylesheet', type='text/css', href='/CSS/main.css')
+	body
+		.container
+			a(href='/feed') check out the feed
+			br
+			a(href='/logout') log out
+			h2 #{post.subject}
+			p posted by #{user.username}
+			p #{post.body}
+			h3 comments
+			form(action= '/comment', method= 'POST', id= "commentForm")
+				input(type="text" name="comment" placeholder= "Comment on this post" id="comment")
+				input(type="hidden" name="commentPostId" value=`${post.id}`)
+				input(type="submit" value= "post")
+			br
+			each comment in comments
+				p #{comment.user.username} says: #{comment.content}
+			

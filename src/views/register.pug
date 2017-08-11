@@ -1,0 +1,17 @@
+doctype html
+html
+head
+	title Blog Register
+	link(rel='stylesheet', type='text/css', href='/CSS/main.css')
+body
+	.container
+		h3 Make blog?
+		form(action='/register' method='post')
+			label username
+			input#username(name='usernameNew' required)
+			label email
+			input#email(name='emailNew' required)
+			label password
+			input#password(type='password' name='passwordNew' required)
+			br
+			input(type='submit' value='register' id='submit')
