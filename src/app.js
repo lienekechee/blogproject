@@ -107,7 +107,7 @@ app.post('/register', (req, res) => {
 		password: req.body.passwordNew
 	})
 	.then(function(){
-		res.render('index')//does this need to be login?
+		res.render('/')//does this need to be login?
 	})
 })
 
@@ -152,20 +152,25 @@ app.get('/profile', (req, res) => {
     
     var user = req.session.user
 
-	Post.findAll({
-		where: {
-		    userId: req.session.user.id
-		},
-		order:[
-			['id', 'DESC']
-		],
-	})
-	.then(posts => {
-		res.render('profile', {
-			user:user, 
-			posts:posts
+	if (user) {
+		Post.findAll({
+			where: {
+			    userId: req.session.user.id
+			},
+			order:[
+				['id', 'DESC']
+			],
 		})
-	})
+		.then(posts => {
+			res.render('profile', {
+				user:user, 
+				posts:posts
+			})
+		})
+	} else{
+		res.redirect('/?message='+ encodeURIComponent("Please log in!"));
+	}
+	
 });
 
 

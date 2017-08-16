@@ -10,8 +10,11 @@ head
 	//- link(href="https://fonts.googleapis.com/css?family=Cabin|Nunito|Sedgwick+Ave" rel="stylesheet")
 body
 	.container
+	if user
 		h1 I am blog
+		a(href="/profile") Your profile
 		br
+	else
 		h3 Have blog?
 		#loginform
 			form(action='/login' method='post')

@@ -13,9 +13,9 @@ body
 		p You may vent your furstrations in the space below
 		br
 		form(action= '/postMsg', method= 'POST', id= "msgForm")
-			input(type="text" name="msgSubject" placeholder= "subject" id="msgSubject")
+			input(type="text" name="msgSubject" placeholder= "subject" id="msgSubject" required)
 			br
-			input(type="text" name="msgBody" placeholder= "what your pet peeve?" id="msgBody")
+			input(type="text" name="msgBody" placeholder= "what your pet peeve?" id="msgBody" required)
 			br
 			input(type="submit" value= "tell them")
 		br
