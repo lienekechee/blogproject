@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const session = require('express-session')
 const Sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 // const bootstrap = require('bootstrap')
 
 
@@ -100,14 +101,23 @@ app.get('/registerform', (req, res) => {
 //2. POST REQUEST - CREATE A NEW PROFILE
 
 app.post('/register', (req, res) => {
-	
-	User.create({
-		username: req.body.usernameNew,
-		email: req.body.emailNew,
-		password: req.body.passwordNew
-	})
-	.then(function(){
-		res.render('/')//does this need to be login?
+
+var password = req.body.passwordNew					//password from user registration form
+
+	bcrypt.hash(password, 8, function (err, hash){	//password, hashed 8 times, callback 
+		if (err !== undefined){
+			console.log(err);
+		} else {
+			User.create({							//hashed password entered into database
+				username: req.body.usernameNew,
+				email: req.body.emailNew,
+				password: hash
+			}).then(function(){
+				res.redirect('/')
+			}).catch(error =>{
+				console.error(error)
+			})
+		}
 	})
 })
 
@@ -115,14 +125,6 @@ app.post('/register', (req, res) => {
 
 app.post('/login',(req, res) => {
 
-	if(req.body.email.length === 0){
-		res.redirect('/?message=' +encodeURIComponent("Please fill out your email address."));
-		return;
-	}
-	if(req.body.password.length === 0) {
-		response.redirect('/?message=' + encodeURIComponent("Please fill out your password."));
-		return;
-	}
 	var email = req.body.email
 	var password = req.body.password
 
@@ -132,12 +134,16 @@ app.post('/login',(req, res) => {
 		}
 	})
 	.then(user => {
-		if (user !== null && password === user.password) {
-			req.session.user = user;
-			res.redirect('/profile');
-		} else {
-			res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-		}
+
+		bcrypt.compare(password, user.password, function (err, result){
+			if (err !== undefined){
+				console.log(err);
+				res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+			} else {
+				req.session.user = user;
+				res.redirect('/profile');
+			}
+		})
 	})
 	.catch(error => {
 		console.error(error)
