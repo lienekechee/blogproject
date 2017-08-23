@@ -103,22 +103,28 @@ app.get('/registerform', (req, res) => {
 app.post('/register', (req, res) => {
 
 var password = req.body.passwordNew					//password from user registration form
+var confirmPassword = req.body.confirmPassword
 
-	bcrypt.hash(password, 8, function (err, hash){	//password, hashed 8 times, callback 
-		if (err !== undefined){
-			console.log(err);
-		} else {
-			User.create({							//hashed password entered into database
-				username: req.body.usernameNew,
-				email: req.body.emailNew,
-				password: hash
-			}).then(function(){
-				res.redirect('/')
-			}).catch(error =>{
-				console.error(error)
-			})
-		}
-	})
+	if(password === confirmPassword){
+		bcrypt.hash(password, 8, function (err, hash){	//password, hashed 8 times, callback 
+			if (err !== undefined){
+				console.log(err);
+			} else {
+				User.create({							//hashed password entered into database
+					username: req.body.usernameNew,
+					email: req.body.emailNew,
+					password: hash
+				}).then(function(){
+					res.redirect('/')
+				}).catch(error =>{						//
+					console.error(error)
+				})
+			}
+		})
+	}else{
+		res.redirect('/?message=' + encodeURIComponent("Please confirm password"));
+	}
+	
 })
 
 //2.5 POST REQUEST - LOGIN

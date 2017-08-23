@@ -9,9 +9,14 @@ body
 		form(action='/register' method='post')
 			label username
 			input#username(name='usernameNew' required)
+			br
 			label email
 			input#email(name='emailNew' required)
+			br
 			label password
-			input#password(type='password' name='passwordNew' required)
+			input#password(type='password' name='passwordNew' minlength= '8' required)
+			br
+			label confirm password
+			input#confirm(type='password' name='confirmPassword' required)
 			br
 			input(type='submit' value='register' id='submit')
